@@ -1,8 +1,4 @@
-# Debian Stretch unattended VM guest installer
-
-*While Debian Stretch is not released yet, script uses `daily-images`.
-If you want to use Debian Jessie (e.g. current stable) please check out
-release v8.0 or update DIST_URL*
+# Debian unattended VM guest installer
 
 Simple script that uses **virt-install** and configures Debian installer
 for unattended installation and custom configuration using **preseed**
