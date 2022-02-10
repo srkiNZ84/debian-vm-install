@@ -16,17 +16,16 @@ echo -n > /etc/motd
 # Unpack postinst tarball.
 tar -x -v -z -C/tmp -f /tmp/postinst.tar.gz
 
-# Install SSH key for pin.
-mkdir -m700 /home/pin/.ssh
-cat /tmp/postinst/authorized_keys > /home/pin/.ssh/authorized_keys
-chown -R pin:pin /home/pin/.ssh
+# Install SSH key for srd user.
+mkdir -m700 /home/srd/.ssh
+cat /tmp/postinst/authorized_keys > /home/srd/.ssh/authorized_keys
+chown -R srd:srd /home/srd/.ssh
 
-# Install collectd and config.
-#apt-get install -y collectd-core
-#cp /tmp/postinst/collectd.conf /etc/collectd/
+# Install Java
+DEBIAN_FRONTEND=noninteractive apt install -y default-jdk
 
 # Remove some non-essential packages.
-DEBIAN_FRONTEND=noninteractive apt-get purge -y nano laptop-detect tasksel dictionaries-common emacsen-common iamerican ibritish ienglish-common ispell
+DEBIAN_FRONTEND=noninteractive apt purge -y nano laptop-detect tasksel dictionaries-common emacsen-common iamerican ibritish ienglish-common ispell
 
 # Set domain name in hosts file
 #sed -i 's/127.0.1.1\t\([a-z]*\).*/127.0.1.1\t\1\.dp\-net\.com\t\1/' /etc/hosts
