@@ -11,8 +11,9 @@ DOMAIN=`/bin/hostname -d` # Use domain of the host system
 # DHCP during the install.
 
 #DIST_URL="http://ftp.de.debian.org/debian/dists/stretch/main/installer-amd64/"
-DIST_URL="https://d-i.debian.org/daily-images/amd64/"
-LINUX_VARIANT="debian9"
+#DIST_URL="https://d-i.debian.org/daily-images/amd64/"
+DIST_URL="http://nz.archive.ubuntu.com/debian/dists/bullseye/main/installer-amd64/"
+LINUX_VARIANT="debian11"
 # NB: Also see preseed.cfg for debian mirror hostname.
 
 if [ $# -lt 1 ]
@@ -40,7 +41,7 @@ then
 fi
 
 # Fetch SSH key from github.
-wget -q https://github.com/pin.keys -O postinst/authorized_keys
+wget -q https://github.com/srkiNZ84.keys -O postinst/authorized_keys
 
 # Create tarball with some stuff we would like to install into the system.
 tar cvfz postinst.tar.gz postinst
@@ -61,7 +62,7 @@ virt-install \
 --controller usb,model=none \
 --graphics none \
 --noautoconsole \
---network bridge=br0,mac=${MAC},model=virtio \
+--network bridge=virbr0,mac=${MAC},model=virtio \
 --extra-args="auto=true hostname="${1}" domain="${DOMAIN}" console=tty0 console=ttyS0,115200n8 serial"
 
 rm postinst.tar.gz
